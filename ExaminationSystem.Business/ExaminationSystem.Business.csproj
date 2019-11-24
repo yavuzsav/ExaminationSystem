@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac.Extras.DynamicProxy" Version="4.5.0" />
+    <PackageReference Include="Mapster" Version="4.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ExaminationSystem.DataAccess\ExaminationSystem.DataAccess.csproj" />
+    <ProjectReference Include="..\ExaminationSystem.Framework\ExaminationSystem.Framework.csproj" />
+    <ProjectReference Include="..\ExaminationSystem.Models\ExaminationSystem.Models.csproj" />
+  </ItemGroup>
+
+</Project>

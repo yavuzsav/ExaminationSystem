@@ -1,0 +1,55 @@
+﻿@model List<Question>
+@{
+    ViewData["Title"] = "";
+}
+
+@if (Model == null)
+{
+    <p class="text-danger">Hiç soru eklenmemiş</p>
+}
+else
+{
+
+    @for (int i = 0; i < Model.Count; i++)
+    {
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#@i">
+
+                            @if (Model[i].QuestionContent.Length < 60)
+                            {
+                                @Model[i].QuestionContent
+                            }
+                            else
+                            {
+                                @Model[i].QuestionContent.Substring(0, 60);
+                            }
+                        </a>
+                        <p> <b>Sınıfı : </b> @Model[i].Category.ClassLevel.ClassLevelName</p>
+                        <p> <b>Kategori : </b> @Model[i].Category.CategoryName</p>
+                    </h4>
+                </div>
+                <div id="@i" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <p><b>A -)</b> @Model[i].A</p>
+                        <p><b>B -)</b> @Model[i].B</p>
+                        <p><b>C -)</b> @Model[i].C</p>
+                        <p><b>D -)</b> @Model[i].D</p>
+                        <p class="list-group-item list-group-item-info"><b>Doğru Cevap : </b> @Model[i].CorrectAnswer </p>
+                        <p> <b>Eklenme Tarihi : </b> @Model[i].OnCreated.ToShortDateString()</p>
+                        <p> <b>Ekleyen (Kullanıcı Adı) : </b> @Model[i].CreatedUserName</p>
+                        <p> <b>Kategori : </b> @Model[i].Category.CategoryName</p>
+
+                        <br />
+                        <p>
+                            <a class="btn btn-info" asp-action="Update" asp-controller="Question" asp-route-id="@Model[i].Id">Güncelle</a>
+                            <a class="btn btn-danger" asp-action="Delete" asp-controller="Question" asp-route-id="@Model[i].Id">Sil</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}

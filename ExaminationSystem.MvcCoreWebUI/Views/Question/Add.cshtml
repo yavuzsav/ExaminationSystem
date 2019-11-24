@@ -1,0 +1,86 @@
+﻿@model Question
+@{
+    ViewData["Title"] = "Soru Ekle";
+}
+
+<div class="col-md-8">
+    <div class="card">
+        <div class="header">
+            <h4 class="title">Soru Ekle</h4>
+        </div>
+        <div class="content">
+            <form asp-action="Add" asp-controller="Question">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Kategori Seçiniz.</label>
+                            <select class="form-control" asp-for="CategoryId" asp-items="@ViewBag.Categories"></select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Soru</label>
+                            <textarea rows="4" class="form-control" asp-for="QuestionContent"></textarea>
+                            <span asp-validation-for="QuestionContent" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>A</label>
+                            <input type="text" class="form-control" asp-for="A">
+                            <span asp-validation-for="A" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>B</label>
+                            <input type="text" class="form-control" asp-for="B">
+                            <span asp-validation-for="B" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>C</label>
+                            <input type="text" class="form-control" asp-for="C">
+                            <span asp-validation-for="C" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>D</label>
+                            <input type="text" class="form-control" asp-for="D">
+                            <span asp-validation-for="D" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Doğru Cevap</label>
+                            <select asp-for="CorrectAnswer" asp-items="Html.GetEnumSelectList<CorrectAnswer>()" class="form-control"></select>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-info btn-fill pull-right">Soru Ekle</button>
+                <div class="clearfix"></div>
+            </form>
+        </div>
+    </div>
+</div>

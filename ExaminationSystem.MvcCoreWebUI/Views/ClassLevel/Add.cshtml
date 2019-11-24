@@ -1,0 +1,39 @@
+﻿@model ClassLevel
+@{
+    ViewData["Title"] = "Sınıf Ekle";
+}
+
+<div class="col-md-8">
+    <div class="card">
+        <div class="header">
+            <h4 class="title">Sınıf Ekle</h4>
+        </div>
+        <div class="content">
+            <form asp-action="Add" asp-controller="ClassLevel">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Sınıf Adı</label>
+                            <input type="text" class="form-control" asp-for="ClassLevelName">
+                            <span asp-validation-for="ClassLevelName" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Açıklama</label>
+                            <input type="text" class="form-control" asp-for="Description">
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-info btn-fill pull-right">Sınıf Ekle</button>
+                <div class="clearfix"></div>
+            </form>
+        </div>
+    </div>
+</div>

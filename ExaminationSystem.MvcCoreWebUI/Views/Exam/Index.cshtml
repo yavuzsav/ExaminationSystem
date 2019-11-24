@@ -1,0 +1,38 @@
+﻿@model List<Category>
+@{
+    ViewData["Title"] = "Kategori Seçim.";
+}
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="header">
+            <h4 class="title">Sınav Sistemi</h4>
+            <p>Sınava Başlamak İçin Kategori Seçiniz.</p>
+        </div>
+        <div class="content table-responsive table-full-width">
+            <form asp-action="GetExam" asp-controller="Exam">
+                <table class="table table-hover table-striped">
+                    <thead>
+                    <th class="text-center">Sınıf</th>
+                    <th class="text-center">Kategori Adı</th>
+                    <th class="text-center">Soru Adedi</th>
+                    <th></th>
+                    </thead>
+                    <tbody>
+                        @foreach (var category in Model)
+                        {
+                            <tr class="text-center">
+                                <td class="list-group-item list-group-item-info" style="display: table-cell">@category.ClassLevel.ClassLevelName</td>
+                                <td>@category.CategoryName</td>
+                                <td>@category.Questions.Count</td>
+                                <td>
+                                    <a class="btn btn-success" asp-action="GetExam" asp-controller="Exam" asp-route-categoryId="@category.Id">Sınava Başla</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>

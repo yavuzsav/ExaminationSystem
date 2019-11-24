@@ -1,0 +1,67 @@
+﻿@model QuestionListViewModel
+@{
+    ViewData["Title"] = "Tüm Sorular";
+}
+
+@if (Model == null)
+{
+    <p class="text-danger">Hiç soru eklenmemiş</p>
+}
+else
+{
+
+    <form asp-action="Index" asp-controller="Question" method="get">
+        <p class="navbar-right">
+            <input type="text" name="search" placeholder="Soru Giriniz." />
+            <input type="submit" class="btn btn-info" value="Ara" />
+        </p>
+    </form>
+    <br />
+    <br />
+    <br />
+
+    @for (int i = 0; i < Model.Questions.Count; i++)
+    {
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#@i">
+
+                            @if (Model.Questions[i].QuestionContent.Length < 60)
+                            {
+                                @Model.Questions[i].QuestionContent
+                            }
+                            else
+                            {
+                                @Model.Questions[i].QuestionContent.Substring(0, 60);
+                            }
+                        </a>
+                        <p> <b>Sınıfı : </b> @Model.Questions[i].Category.ClassLevel.ClassLevelName</p>
+                        <p> <b>Kategori : </b> @Model.Questions[i].Category.CategoryName</p>
+                    </h4>
+                </div>
+                <div id="@i" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <p><b>A -)</b> @Model.Questions[i].A</p>
+                        <p><b>B -)</b> @Model.Questions[i].B</p>
+                        <p><b>C -)</b> @Model.Questions[i].C</p>
+                        <p><b>D -)</b> @Model.Questions[i].D</p>
+                        <p class="list-group-item list-group-item-info"><b>Doğru Cevap : </b> @Model.Questions[i].CorrectAnswer </p>
+                        <p> <b>Eklenme Tarihi : </b> @Model.Questions[i].OnCreated.ToShortDateString()</p>
+                        <p> <b>Ekleyen (Kullanıcı Adı) : </b> @Model.Questions[i].CreatedUserName</p>
+                        <p> <b>Kategori : </b> @Model.Questions[i].Category.CategoryName</p>
+
+                        <br />
+                        <p>
+                            <a class="btn btn-info" asp-action="Update" asp-controller="Question" asp-route-id="@Model.Questions[i].Id">Güncelle</a>
+                            <a class="btn btn-danger" asp-action="Delete" asp-controller="Question" asp-route-id="@Model.Questions[i].Id">Sil</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <list-pager controller-name="question" page-count="@Model.PageCount" page-size="@Model.PageSize" current-page="@Model.CurrentPage"></list-pager>
+}
