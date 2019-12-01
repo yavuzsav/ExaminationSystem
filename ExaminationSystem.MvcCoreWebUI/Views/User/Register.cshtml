@@ -1,0 +1,50 @@
+﻿@model UserForRegisterDto
+@{
+    ViewData["Title"] = "Kayıt Ol";
+    Layout = "_Layout";
+}
+
+<div class="col-md-8">
+    <div class="card">
+        <div class="header">
+            <h4 class="title">Kayıt Ol</h4>
+        </div>
+        <div class="content">
+            <form asp-action="Register" asp-controller="User">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Kullanıcı Adı</label>
+                            <input type="text" class="form-control" asp-for="UserName">
+                            <span asp-validation-for="UserName" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>E-Mail</label>
+                            <input type="text" class="form-control" asp-for="Email">
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Şifre</label>
+                            <input type="password" class="form-control" asp-for="Password">
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-info btn-fill pull-right">Kayıt Ol</button>
+                <div class="clearfix"></div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -99,88 +99,142 @@
                         </a>
                     </li>
 
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-user"></i>
-                            <p>
-                                Kullanıcı
-                                <b class="caret"></b>
-                            </p>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a asp-action="Index" asp-controller="User">Tüm Kullanıcılar</a></li>
-                            <li><a asp-action="Index" asp-controller="User">Yöneticiler Listesi</a></li>
-                            <li><a asp-action="Index" asp-controller="User">Öğretmenler Listesi</a></li>
-                            <li><a asp-action="Index" asp-controller="User">Öğrenciler Listesi</a></li>
-                            <li><a asp-action="RoleAssign" asp-controller="User">Yetki Ata</a></li>
-                        </ul>
-                    </li>
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-user"></i>
+                                <p>
+                                    Kullanıcı
+                                    <b class="caret"></b>
+                                </p>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a asp-action="Index" asp-controller="User">Tüm Kullanıcılar</a></li>
+                                <li><a asp-action="Index" asp-controller="User">Yöneticiler Listesi</a></li>
+                                <li><a asp-action="Index" asp-controller="User">Öğretmenler Listesi</a></li>
+                                <li><a asp-action="Index" asp-controller="User">Öğrenciler Listesi</a></li>
+                                <li><a asp-action="RoleAssign" asp-controller="User">Yetki Ata</a></li>
+                            </ul>
+                        </li>
 
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-pie-chart"></i>
-                            <p>
-                                Kategori
-                                <b class="caret"></b>
-                            </p>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a asp-action="Index" asp-controller="Category">Tüm Kategoriler</a></li>
-                            <li><a asp-action="Add" asp-controller="Category">Kategori Ekle</a></li>
-                        </ul>
-                    </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-pie-chart"></i>
+                                <p>
+                                    Kategori
+                                    <b class="caret"></b>
+                                </p>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a asp-action="Index" asp-controller="Category">Tüm Kategoriler</a></li>
+                                <li><a asp-action="Add" asp-controller="Category">Kategori Ekle</a></li>
+                            </ul>
+                        </li>
 
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-users"></i>
-                            <p>
-                                Sınıf
-                                <b class="caret"></b>
-                            </p>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a asp-action="Index" asp-controller="ClassLevel">Tüm Sınıflar</a></li>
-                            <li><a asp-action="Add" asp-controller="ClassLevel">Sınıf Ekle</a></li>
-                        </ul>
-                    </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-users"></i>
+                                <p>
+                                    Sınıf
+                                    <b class="caret"></b>
+                                </p>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a asp-action="Index" asp-controller="ClassLevel">Tüm Sınıflar</a></li>
+                                <li><a asp-action="Add" asp-controller="ClassLevel">Sınıf Ekle</a></li>
+                            </ul>
+                        </li>
 
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-question"></i>
-                            <p>
-                                Soru
-                                <b class="caret"></b>
-                            </p>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a asp-action="Index" asp-controller="Question">Tüm Sorular</a></li>
-                            <li><a asp-action="Index" asp-controller="Category">Kategorilere Göre Sorular</a></li>
-                            <li><a asp-action="Add" asp-controller="Question">Soru Ekle</a></li>
-                            <li class="divider"></li>
-                            <li><a asp-action="Index" asp-controller="ExamParameter">Sınav Parametreleri</a></li>
-                        </ul>
-                    </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-question"></i>
+                                <p>
+                                    Soru
+                                    <b class="caret"></b>
+                                </p>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a asp-action="Index" asp-controller="Question">Tüm Sorular</a></li>
+                                <li><a asp-action="Index" asp-controller="Category">Kategorilere Göre Sorular</a></li>
+                                <li><a asp-action="Add" asp-controller="Question">Soru Ekle</a></li>
+                                <li class="divider"></li>
+                                <li><a asp-action="Index" asp-controller="ExamParameter">Sınav Parametreleri</a></li>
+                            </ul>
+                        </li>
 
-                    <li>
-                        <a href="#">
-                            <i class="fa "></i>
-                            <p>Deneme Sınavı</p>
-                        </a>
-                    </li>
+                        <li>
+                            <a asp-controller="Exam" asp-action="Index">
+                                <i class="fa "></i>
+                                <p>Deneme Sınavı</p>
+                            </a>
+                        </li>
 
-                    <li>
-                        <a href="#">
-                            <i class="fa fa-cog"></i>
-                            <p>Ayarlar</p>
-                        </a>
-                    </li>
+                        <li>
+                            <a asp-controller="Home" asp-action="Config">
+                                <i class="fa fa-cog"></i>
+                                <p>Ayarlar</p>
+                            </a>
+                        </li>
 
-                    <li>
-                        <a href="#">
-                            <i class="fa fa-sign-out"></i>
-                            <p>Çıkış</p>
-                        </a>
-                    </li>
+                        <li>
+                            <a asp-controller="User" asp-action="SignOut" asp-route-returnUrl="/Home/Index">
+                                <i class="fa fa-sign-out"></i>
+                                <p>Çıkış</p>
+                            </a>
+                        </li>
+                    }
+                    else if (User.Identity.IsAuthenticated && User.IsInRole("Student"))
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-user"></i>
+                                <p>
+                                    Kullanıcı
+                                    <b class="caret"></b>
+                                </p>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a asp-action="Results" asp-controller="User">Sonuçlarım</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a asp-controller="Exam" asp-action="Index">
+                                <i class="fa fa-quora"></i>
+                                <p>Deneme Sınavı</p>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a asp-controller="Home" asp-action="Config">
+                                <i class="fa fa-cog"></i>
+                                <p>Ayarlar</p>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a asp-controller="User" asp-action="SignOut" asp-route-returnUrl="/Home/Index">
+                                <i class="fa fa-sign-out"></i>
+                                <p>Çıkış</p>
+                            </a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            <a asp-controller="User" asp-action="Login">
+                                <i class="fa fa-sign-in"></i>
+                                <p>Giriş Yap</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="User" asp-action="Register">
+                                <i class="fa fa-user-plus"></i>
+                                <p>Kayıt Ol</p>
+                            </a>
+                        </li>
+                    }
                 </ul>
             </div>
         </div>
@@ -206,13 +260,16 @@
                             </li>
                         </ul>
 
-                        <ul class="nav navbar-nav navbar-right">
-                            <li>
-                                <a href="">
-                                    UserName
-                                </a>
-                            </li>
-                        </ul>
+                        @*@if (User.Identity.IsAuthenticated)
+                            {
+                                <ul class="nav navbar-nav navbar-right">
+                                    <li>
+                                        <a href="">
+                                            @RenderSection("");
+                                        </a>
+                                    </li>
+                                </ul>
+                            }*@
                     </div>
                 </div>
             </nav>

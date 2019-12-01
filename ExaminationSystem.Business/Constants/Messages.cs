@@ -18,5 +18,6 @@
         public static string DuplicationError = "Aynı Şekilde Başka Bir Kayıt Var.";
 
         public static string NotEnoughQuestions = "Bu Kategoride Yeterli Soru Yok.";
+        public static string RoleAssignError = "Rol atama sırasında bir hata oluştu";
     }
 }

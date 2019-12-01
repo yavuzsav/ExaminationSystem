@@ -28,11 +28,13 @@ namespace ExaminationSystem.Business.Concrete
     {
         private readonly IQuestionDal _questionDal;
         private readonly IExamParameterService _examParameterService;
+        private readonly INoteService _noteService;
 
-        public QuestionManager(IQuestionDal questionDal, IExamParameterService examParameterService)
+        public QuestionManager(IQuestionDal questionDal, IExamParameterService examParameterService, INoteService noteService)
         {
             _questionDal = questionDal;
             _examParameterService = examParameterService;
+            _noteService = noteService;
         }
 
         [ValidationAspect(typeof(QuestionValidator))]
@@ -123,6 +125,16 @@ namespace ExaminationSystem.Business.Concrete
                     wrong += 1;
                 }
             }
+
+            _noteService.AddNote(new Note
+            {
+                Id = CreateUniqueId.CreateId(),
+                CategoryId = questions.GroupBy(x => x.CategoryId).FirstOrDefault()?.ToString(),
+                Correct = correct,
+                Wrong = wrong,
+                Empty = empty,
+                UserId = user.Id
+            });
 
             return new SuccessDataResult<ExamResult>(new ExamResult
             {

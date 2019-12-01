@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "Ana Sayfa";
+    Layout = "_Layout";
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+    <h2>Ana Sayfa</h2>
+}
+else
+{
+    <h2>Devam etmek için giriş yapınız.</h2>
+}

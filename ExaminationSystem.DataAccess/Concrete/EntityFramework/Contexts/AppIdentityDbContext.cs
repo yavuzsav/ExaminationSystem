@@ -1,4 +1,5 @@
-﻿using ExaminationSystem.Models.IdentityEntities;
+﻿using ExaminationSystem.DataAccess.Concrete.EntityFramework.SeedData;
+using ExaminationSystem.Models.IdentityEntities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

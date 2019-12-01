@@ -10,6 +10,8 @@ namespace ExaminationSystem.Business.Abstract
     {
         IDataResult<List<Claim>> GetClaims(UserDto user);
 
+        IDataResult<List<string>> GetRoleNames(UserDto user);
+
         //IResult Add(AppUser user);
 
         IResult Update(UserDto user, string userName);

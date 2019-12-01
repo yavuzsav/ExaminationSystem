@@ -1,5 +1,6 @@
 ﻿using ExaminationSystem.Business.Abstract;
 using ExaminationSystem.Business.Constants;
+using ExaminationSystem.Framework.Utilities.Helpers;
 using ExaminationSystem.Framework.Utilities.Results.BaseResults;
 using ExaminationSystem.Framework.Utilities.Results.ErrorResults;
 using ExaminationSystem.Framework.Utilities.Results.SuccessResults;
@@ -19,6 +20,22 @@ namespace ExaminationSystem.Business.Concrete
         public IResult SignUp(UserForRegisterDto userForRegisterDto)
         {
             //todo email doğrulama eklenebilir.
+            if (!RoleManager.RoleExistsAsync("Student").Result)
+            {
+                RoleManager.CreateAsync(new AppRole
+                {
+                    Name = "Student",
+                });
+            }
+
+            if (!RoleManager.RoleExistsAsync("Admin").Result)
+            {
+                RoleManager.CreateAsync(new AppRole
+                {
+                    Name = "Admin",
+                });
+            }
+
             AppUser user = new AppUser
             {
                 UserName = userForRegisterDto.UserName,
@@ -27,7 +44,13 @@ namespace ExaminationSystem.Business.Concrete
             IdentityResult result = UserManager.CreateAsync(user, userForRegisterDto.Password).Result;
 
             if (result.Succeeded)
-                return new SuccessResult();
+            {
+                var roleResult = UserManager.AddToRoleAsync(user, "Student").Result;
+                if (roleResult.Succeeded)
+                    return new SuccessResult();
+                else
+                    return new ErrorResult(Messages.RoleAssignError);
+            }
 
             UserManager.DeleteAsync(user);
             return new ErrorResult(result.Errors.ToString());

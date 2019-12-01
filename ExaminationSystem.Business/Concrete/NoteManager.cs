@@ -4,6 +4,7 @@ using ExaminationSystem.DataAccess.Abstract;
 using ExaminationSystem.Framework.Utilities.Results.BaseResults;
 using ExaminationSystem.Framework.Utilities.Results.SuccessResults;
 using ExaminationSystem.Models.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -20,6 +21,7 @@ namespace ExaminationSystem.Business.Concrete
 
         public IResult AddNote(Note note)
         {
+            note.Date = DateTime.Now;
             _noteDal.Insert(note);
             return new SuccessResult(Messages.AddedSuccess);
         }

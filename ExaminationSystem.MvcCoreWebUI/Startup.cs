@@ -62,7 +62,7 @@ namespace ExaminationSystem.MvcCoreWebUI
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = new PathString("/Home/Login");
-                options.LogoutPath = new PathString("/Member/LogOut");
+                options.LogoutPath = new PathString("/User/SignOut");
                 options.Cookie = cookieBuilder;
                 options.SlidingExpiration = true;
                 options.ExpireTimeSpan = TimeSpan.FromDays(60);
@@ -83,6 +83,9 @@ namespace ExaminationSystem.MvcCoreWebUI
             app.ConfigureCustomExceptionMiddleware();
 
             app.UseStaticFiles();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseMvcWithDefaultRoute();
         }

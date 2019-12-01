@@ -24,9 +24,16 @@ namespace ExaminationSystem.Business.Concrete
             return new SuccessDataResult<List<Claim>>(UserManager.GetClaimsAsync(user.Adapt<AppUser>()).Result.ToList());
         }
 
+        public IDataResult<List<string>> GetRoleNames(UserDto user)
+        {
+            var a = UserManager.FindByEmailAsync(user.Email).Result;
+
+            var roleNames = UserManager.GetRolesAsync(a).Result;
+            return new SuccessDataResult<List<string>>(roleNames.ToList());
+        }
+
         public IResult Update(UserDto user, string userName)
         {
-            //todo validation için refactoring gerekiyor.
             AppUser appUser = UserManager.FindByNameAsync(user.UserName).Result;
 
             if (appUser != null)
