@@ -35,13 +35,13 @@ namespace ExaminationSystem.Framework.Aspects.Autofac.Exception
 
             for (int i = 0; i < invocation.Arguments.Length; i++)
             {
-                if (invocation.Arguments[i] != null)
-                    logParameters.Add(new LogParameter
-                    {
-                        Name = invocation.GetConcreteMethod().GetParameters()[i].Name,
-                        Value = invocation.Arguments?[i],
-                        Type = invocation.Arguments?[i].GetType().Name
-                    });
+                //if (invocation.Arguments[i] != null)
+                logParameters.Add(new LogParameter
+                {
+                    Name = invocation.GetConcreteMethod().GetParameters()[i].Name,
+                    Value = invocation.Arguments?[i],
+                    Type = invocation.Arguments?[i].GetType().Name
+                });
             }
 
             var logDetailWithException = new LogDetailWithException

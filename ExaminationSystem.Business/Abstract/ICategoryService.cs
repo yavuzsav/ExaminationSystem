@@ -17,7 +17,5 @@ namespace ExaminationSystem.Business.Abstract
         IResult Delete(Category category);
 
         IDataResult<List<Category>> GetCategoriesByClassLevel(string classLevelId);
-
-        IDataResult<List<Question>> GetQuestionsByCategory(string categoryId);
     }
 }

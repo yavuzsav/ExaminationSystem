@@ -19,5 +19,7 @@
 
         public static string NotEnoughQuestions = "Bu Kategoride Yeterli Soru Yok.";
         public static string RoleAssignError = "Rol atama sırasında bir hata oluştu";
+        public static string UserNotExists = "Kullanıcı Bulunamadı";
+        public static string UserLocked = "Çok fazla geçersiz şifre denemesi yaptınız lütfen daha sonra tekrar deneyiniz.";
     }
 }

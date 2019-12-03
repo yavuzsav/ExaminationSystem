@@ -106,5 +106,11 @@ namespace ExaminationSystem.Business.Concrete
             var user = UserManager.FindByIdAsync(id).Result;
             return new SuccessDataResult<UserDto>(user.Adapt<UserDto>());
         }
+
+        public IDataResult<UserWithIdDto> GetUserByUserName(string userName)
+        {
+            var user = UserManager.FindByNameAsync(userName).Result;
+            return new SuccessDataResult<UserWithIdDto>(user.Adapt<UserWithIdDto>());
+        }
     }
 }

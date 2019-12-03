@@ -12,12 +12,14 @@ namespace ExaminationSystem.MvcCoreWebUI.Controllers
     {
         private readonly IClassLevelService _classLevelService;
         private readonly ICategoryService _categoryService;
+        private readonly IQuestionService _questionService;
         private string CurrentUserName => User.Identity.Name ?? "Anonymous";
 
-        public CategoryController(ICategoryService categoryService, IClassLevelService classLevelService)
+        public CategoryController(ICategoryService categoryService, IClassLevelService classLevelService, IQuestionService questionService)
         {
             _categoryService = categoryService;
             _classLevelService = classLevelService;
+            _questionService = questionService;
         }
 
         public IActionResult Index(string search = null, int page = 1)
@@ -44,7 +46,7 @@ namespace ExaminationSystem.MvcCoreWebUI.Controllers
 
         public IActionResult GetQuestions(string id)
         {
-            var questions = _categoryService.GetQuestionsByCategory(id).Data;
+            var questions = _questionService.GetByCategoryId(id).Data;
 
             if (questions == null)
                 return NotFound();

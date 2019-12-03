@@ -1,5 +1,4 @@
-﻿using System;
-using ExaminationSystem.Business.Abstract;
+﻿using ExaminationSystem.Business.Abstract;
 using ExaminationSystem.Business.Constants;
 using ExaminationSystem.Business.ValidationRules.FluentValidation;
 using ExaminationSystem.DataAccess.Abstract;
@@ -10,14 +9,15 @@ using ExaminationSystem.Framework.Aspects.Autofac.Transaction;
 using ExaminationSystem.Framework.Aspects.Autofac.Validation;
 using ExaminationSystem.Framework.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using ExaminationSystem.Framework.Extensions;
+using ExaminationSystem.Framework.Utilities.Business;
 using ExaminationSystem.Framework.Utilities.Helpers;
 using ExaminationSystem.Framework.Utilities.Results.BaseResults;
 using ExaminationSystem.Framework.Utilities.Results.ErrorResults;
 using ExaminationSystem.Framework.Utilities.Results.SuccessResults;
 using ExaminationSystem.Models.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using ExaminationSystem.Framework.Utilities.Business;
 
 namespace ExaminationSystem.Business.Concrete
 {
@@ -93,12 +93,6 @@ namespace ExaminationSystem.Business.Concrete
         public IDataResult<List<Category>> GetCategoriesByClassLevel(string classLevelId)
         {
             return new SuccessDataResult<List<Category>>(_categoryDal.Get(x => x.ClassLevelId == classLevelId).ToList());
-        }
-
-        [CacheAspect(120)]
-        public IDataResult<List<Question>> GetQuestionsByCategory(string categoryId)
-        {
-            return new SuccessDataResult<List<Question>>(_categoryDal.Find(x => x.Id == categoryId).Questions.ToList());
         }
 
         private IResult CheckIfCategoryExists(string categoryName, string classLevelId, string id = null)

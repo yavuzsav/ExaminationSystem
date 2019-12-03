@@ -14,8 +14,6 @@ namespace ExaminationSystem.Business.ValidationRules.FluentValidation
             RuleFor(x => x.C).NotEmpty().MinimumLength(1);
             RuleFor(x => x.D).NotEmpty().MinimumLength(1);
             RuleFor(x => x.CorrectAnswer).NotEmpty();
-            RuleFor(x => x.CreatedUserName).NotEmpty();
-            RuleFor(x => x.OnCreated).NotEmpty();
         }
     }
 }

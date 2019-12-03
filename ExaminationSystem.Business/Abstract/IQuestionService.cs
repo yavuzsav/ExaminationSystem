@@ -1,7 +1,7 @@
 ﻿using ExaminationSystem.Business.Helpers;
 using ExaminationSystem.Framework.Utilities.Results.BaseResults;
+using ExaminationSystem.Models.Dtos.User;
 using ExaminationSystem.Models.Entities;
-using ExaminationSystem.Models.IdentityEntities;
 using System.Collections.Generic;
 
 namespace ExaminationSystem.Business.Abstract
@@ -18,7 +18,7 @@ namespace ExaminationSystem.Business.Abstract
 
         IDataResult<List<Question>> GetExam(string categoryId);
 
-        IDataResult<ExamResult> FinishExam(List<string> questionIds, List<string> userAnswers, AppUser user);
+        IDataResult<ExamResult> FinishExam(List<string> questionIds, List<string> userAnswers, UserWithIdDto user);
 
         IDataResult<List<Question>> GetByCategoryId(string categoryId);
 

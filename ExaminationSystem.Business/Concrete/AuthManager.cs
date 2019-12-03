@@ -61,10 +61,10 @@ namespace ExaminationSystem.Business.Concrete
             var user = UserManager.FindByEmailAsync(userForLoginDto.Email).Result;
 
             if (user == null)
-                return new ErrorResult();//user yok
+                return new ErrorResult(Messages.UserNotExists);//user yok
 
             if (UserManager.IsLockedOutAsync(user).Result)
-                return new ErrorResult(); //hesap kitli
+                return new ErrorResult(Messages.UserLocked); //hesap kitli
 
             //todo email doğrulaması varsa ekle
 
@@ -84,7 +84,7 @@ namespace ExaminationSystem.Business.Concrete
             if (fail == 5)
             {
                 UserManager.SetLockoutEndDateAsync(user, new DateTimeOffset(DateTime.Now.AddMinutes(20)));
-                return new ErrorResult();//hesap kilitlendi
+                return new ErrorResult(Messages.UserLocked);//hesap kilitlendi
             }
 
             return new ErrorResult();

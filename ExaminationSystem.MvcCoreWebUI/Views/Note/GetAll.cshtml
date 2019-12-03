@@ -1,0 +1,47 @@
+﻿@model ExaminationSystem.MvcCoreWebUI.ViewModels.Notes.NoteListViewModel
+@{
+    ViewData["Title"] = "Tüm Sonuçlar";
+}
+
+@if (Model.Notes.Count == 0)
+{
+    <p class="text-danger">Kullanıcılara ait hiçbir cevap bulunamadı.</p>
+}
+else
+{
+
+    @for (int i = 0; i < Model.Notes.Count; i++)
+    {
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#@i">
+                            @if (Model.Users != null)
+                            {
+                                @Model.Users[i].UserName
+                            }
+                            else
+                            {
+                                @User.Identity.Name
+                            }
+                        </a>
+                        <p> <b>Tarih : </b> @Model.Notes[i].Date.ToShortDateString()</p>
+                        <p> <b>Kategori : </b> @Model.Notes[i].Category.CategoryName</p>
+                    </h4>
+                </div>
+                <div id="@i" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <p class="list-group-item list-group-item-success"><b>Doğru : </b> @Model.Notes[i].Correct</p>
+                        <p class="list-group-item list-group-item-danger"><b>Yanlış : </b> @Model.Notes[i].Wrong</p>
+                        <p class="list-group-item list-group-item-info"><b>Boş : </b> @Model.Notes[i].Empty</p>
+
+                        <br />
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <list-pager controller-name="Note" page-count="@Model.PageCount" page-size="@Model.PageSize" current-page="@Model.CurrentPage"></list-pager>
+}

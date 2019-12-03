@@ -18,6 +18,7 @@ using ExaminationSystem.Models.IdentityEntities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ExaminationSystem.Models.Dtos.User;
 
 namespace ExaminationSystem.Business.Concrete
 {
@@ -29,12 +30,14 @@ namespace ExaminationSystem.Business.Concrete
         private readonly IQuestionDal _questionDal;
         private readonly IExamParameterService _examParameterService;
         private readonly INoteService _noteService;
+        private readonly IUserService _userService;
 
-        public QuestionManager(IQuestionDal questionDal, IExamParameterService examParameterService, INoteService noteService)
+        public QuestionManager(IQuestionDal questionDal, IExamParameterService examParameterService, INoteService noteService, IUserService userService)
         {
             _questionDal = questionDal;
             _examParameterService = examParameterService;
             _noteService = noteService;
+            _userService = userService;
         }
 
         [ValidationAspect(typeof(QuestionValidator))]
@@ -91,7 +94,7 @@ namespace ExaminationSystem.Business.Concrete
             //todo daha önce çözdüğü soruyu bir daha çekmesin
         }
 
-        public IDataResult<ExamResult> FinishExam(List<string> questionIds, List<string> userAnswers, AppUser user)
+        public IDataResult<ExamResult> FinishExam(List<string> questionIds, List<string> userAnswers, UserWithIdDto user)
         {
             int correct = 0;
             int wrong = 0;
@@ -129,7 +132,7 @@ namespace ExaminationSystem.Business.Concrete
             _noteService.AddNote(new Note
             {
                 Id = CreateUniqueId.CreateId(),
-                CategoryId = questions.GroupBy(x => x.CategoryId).FirstOrDefault()?.ToString(),
+                CategoryId = questions[0].CategoryId,
                 Correct = correct,
                 Wrong = wrong,
                 Empty = empty,

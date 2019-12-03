@@ -40,7 +40,7 @@ namespace ExaminationSystem.Business.Concrete
 
         public IDataResult<List<Note>> GetAll()
         {
-            return new SuccessDataResult<List<Note>>(_noteDal.Get().ToList());
+            return new SuccessDataResult<List<Note>>(_noteDal.Get().OrderByDescending(x => x.Date).ToList());
         }
 
         public IDataResult<List<Note>> GetByUserId(string userId)

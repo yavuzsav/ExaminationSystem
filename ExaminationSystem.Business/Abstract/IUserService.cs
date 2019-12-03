@@ -25,5 +25,7 @@ namespace ExaminationSystem.Business.Abstract
         IDataResult<UserDto> GetByUserName(string userName);
 
         IDataResult<UserDto> GetByUserId(string id);
+
+        IDataResult<UserWithIdDto> GetUserByUserName(string userName);
     }
 }

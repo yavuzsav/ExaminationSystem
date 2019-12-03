@@ -112,9 +112,10 @@
                             <ul class="dropdown-menu">
                                 <li><a asp-action="Index" asp-controller="User">Tüm Kullanıcılar</a></li>
                                 <li><a asp-action="Index" asp-controller="User">Yöneticiler Listesi</a></li>
-                                <li><a asp-action="Index" asp-controller="User">Öğretmenler Listesi</a></li>
                                 <li><a asp-action="Index" asp-controller="User">Öğrenciler Listesi</a></li>
                                 <li><a asp-action="RoleAssign" asp-controller="User">Yetki Ata</a></li>
+                                <li class="divider"></li>
+                                <li><a asp-controller="Note" asp-action="GetAll">Tüm Sonuçlar</a></li>
                             </ul>
                         </li>
 
@@ -165,7 +166,7 @@
 
                         <li>
                             <a asp-controller="Exam" asp-action="Index">
-                                <i class="fa "></i>
+                                <i class="fa fa-quora"></i>
                                 <p>Deneme Sınavı</p>
                             </a>
                         </li>
@@ -195,7 +196,7 @@
                                 </p>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a asp-action="Results" asp-controller="User">Sonuçlarım</a></li>
+                                <li><a asp-action="GetAllByUser" asp-controller="Note">Sonuçlarım</a></li>
                             </ul>
                         </li>
 
