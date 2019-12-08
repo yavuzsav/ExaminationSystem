@@ -1,0 +1,50 @@
+﻿@model ExaminationSystem.MvcCoreWebUI.ViewModels.Users.UserListViewModel
+@{
+    ViewData["Title"] = ViewBag.title;
+}
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="header">
+            <h4 class="title">Sınav Sistemi</h4>
+            <p>@ViewBag.title</p>
+            @if (ViewBag.title == "Tüm Kullanıcılar")
+            {
+                <form asp-action="Index" asp-controller="User" method="get">
+                    <p class="navbar-right">
+                        <input type="text" name="searchString" placeholder="Aranacak Kelimeyi Giriniz." />
+                        <input type="submit" class="btn btn-info" value="Ara" />
+                    </p>
+                </form>
+            }
+        </div>
+        <div class="content table-responsive table-full-width">
+            <table class="table table-hover table-striped">
+                <thead>
+                <th class="text-center">Kullanıcı Adı</th>
+                <th class="text-center">Email Adresi</th>
+                <th class="text-center">Yetkisi</th>
+                <th></th>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.Users.Count; i++)
+                    {
+                        <tr class="text-center">
+                            <td>@Model.Users[i].UserName</td>
+                            <td>@Model.Users[i].Email</td>
+                            <td>
+                                @if (Model.UsersRoles != null)
+                                {
+                                    @Model.UsersRoles[i]
+                                }
+                            </td>
+                            <td><a class="btn btn-info" asp-controller="User" asp-action="RoleAssign" asp-route-userId="@Model.Users[i].Id">Yetki Ata</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<list-pager controller-name="User" current-page="@Model.CurrentPage" page-count="@Model.PageCount" page-size="@Model.PageSize"></list-pager>

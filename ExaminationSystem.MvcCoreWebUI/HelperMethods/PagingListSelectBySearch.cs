@@ -6,7 +6,7 @@ namespace ExaminationSystem.MvcCoreWebUI.HelperMethods
 {
     public static class PagingListSelectBySearch
     {
-        public static List<T> SelectList<T>(List<T> entityList, List<T>? searchedList, int page, int pageSize)
+        public static List<T> SelectList<T>(List<T> entityList, List<T> searchedList, int page, int pageSize)
         {
             if (searchedList.IsNullOrEmpty())
             {
@@ -21,7 +21,7 @@ namespace ExaminationSystem.MvcCoreWebUI.HelperMethods
             //    : searchedList.Skip((page - 1) * pageSize).Take(pageSize).ToList();
         }
 
-        public static int GetPageCount<T>(List<T> entityList, List<T>? searchedList, int pageSize)
+        public static int GetPageCount<T>(List<T> entityList, List<T> searchedList, int pageSize)
         {
             if (searchedList.IsNullOrEmpty())
                 return (int)(entityList.Count / (double)pageSize);

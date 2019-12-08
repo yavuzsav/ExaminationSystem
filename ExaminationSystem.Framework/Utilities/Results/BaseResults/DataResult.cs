@@ -2,7 +2,7 @@
 {
     public class DataResult<TData> : Result, IDataResult<TData>
     {
-        public DataResult(TData data, bool success, string message) : base(success, message)
+        public DataResult(TData data, bool success, string message = "") : base(success, message)
         {
             Data = data;
         }

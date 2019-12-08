@@ -5,7 +5,6 @@ using ExaminationSystem.Business.Abstract;
 using ExaminationSystem.Business.Concrete;
 using ExaminationSystem.DataAccess.Abstract;
 using ExaminationSystem.DataAccess.Concrete.EntityFramework;
-using ExaminationSystem.DataAccess.Concrete.EntityFramework.Contexts;
 using ExaminationSystem.Framework.Utilities.Interceptors.Autofac;
 
 namespace ExaminationSystem.Business.DependencyResolvers.Autofac
@@ -31,6 +30,7 @@ namespace ExaminationSystem.Business.DependencyResolvers.Autofac
 
             builder.RegisterType<UserManager>().As<IUserService>();
             builder.RegisterType<AuthManager>().As<IAuthService>();
+            builder.RegisterType<RoleManager>().As<IRoleService>();
 
             builder.RegisterType<ClassLevelManager>().As<IClassLevelService>();
             builder.RegisterType<EfClassLevelDal>().As<IClassLevelDal>();

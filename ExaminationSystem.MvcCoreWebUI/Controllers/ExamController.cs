@@ -46,7 +46,7 @@ namespace ExaminationSystem.MvcCoreWebUI.Controllers
         public IActionResult FinishExam(ExamViewModel examViewModel)
         {
             var user = _userService.GetUserByUserName(User.Identity.Name).Data;
-            var result = _questionService.FinishExam(examViewModel.Questions.Select(x => x.Id).ToList(), examViewModel.UserAnswers, user).Data; //todo user
+            var result = _questionService.FinishExam(examViewModel.Questions.Select(x => x.Id).ToList(), examViewModel.UserAnswers, user).Data;
 
             return View(result);
         }

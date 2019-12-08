@@ -8,11 +8,9 @@ namespace ExaminationSystem.Business.Abstract
 {
     public interface IUserService
     {
+        IDataResult<List<UserDto>> GetAll();
+
         IDataResult<List<Claim>> GetClaims(UserDto user);
-
-        IDataResult<List<string>> GetRoleNames(UserDto user);
-
-        //IResult Add(AppUser user);
 
         IResult Update(UserDto user, string userName);
 

@@ -111,9 +111,9 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a asp-action="Index" asp-controller="User">Tüm Kullanıcılar</a></li>
-                                <li><a asp-action="Index" asp-controller="User">Yöneticiler Listesi</a></li>
-                                <li><a asp-action="Index" asp-controller="User">Öğrenciler Listesi</a></li>
-                                <li><a asp-action="RoleAssign" asp-controller="User">Yetki Ata</a></li>
+                                <li><a asp-action="Admins" asp-controller="User">Yöneticiler Listesi</a></li>
+                                <li><a asp-action="Students" asp-controller="User">Öğrenciler Listesi</a></li>
+                                <li><a asp-action="Index" asp-controller="User">Yetki Ata</a></li>
                                 <li class="divider"></li>
                                 <li><a asp-controller="Note" asp-action="GetAll">Tüm Sonuçlar</a></li>
                             </ul>
@@ -261,16 +261,16 @@
                             </li>
                         </ul>
 
-                        @*@if (User.Identity.IsAuthenticated)
-                            {
-                                <ul class="nav navbar-nav navbar-right">
-                                    <li>
-                                        <a href="">
-                                            @RenderSection("");
-                                        </a>
-                                    </li>
-                                </ul>
-                            }*@
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <ul class="nav navbar-nav navbar-right">
+                                <li>
+                                    <a href="">
+                                        @User.Identity.Name
+                                    </a>
+                                </li>
+                            </ul>
+                        }
                     </div>
                 </div>
             </nav>

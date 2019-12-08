@@ -19,17 +19,22 @@ namespace ExaminationSystem.Business.Concrete
         {
         }
 
+        public IDataResult<List<UserDto>> GetAll()
+        {
+            var appUsers = UserManager.Users.ToList();
+            List<UserDto> users = new List<UserDto>();
+
+            foreach (var appUser in appUsers)
+            {
+                users.Add(appUser.Adapt<UserDto>());
+            }
+
+            return new SuccessDataResult<List<UserDto>>(users);
+        }
+
         public IDataResult<List<Claim>> GetClaims(UserDto user)
         {
             return new SuccessDataResult<List<Claim>>(UserManager.GetClaimsAsync(user.Adapt<AppUser>()).Result.ToList());
-        }
-
-        public IDataResult<List<string>> GetRoleNames(UserDto user)
-        {
-            var a = UserManager.FindByEmailAsync(user.Email).Result;
-
-            var roleNames = UserManager.GetRolesAsync(a).Result;
-            return new SuccessDataResult<List<string>>(roleNames.ToList());
         }
 
         public IResult Update(UserDto user, string userName)

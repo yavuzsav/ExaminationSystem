@@ -1,0 +1,21 @@
+﻿@model ExaminationSystem.MvcCoreWebUI.ViewModels.Users.RoleAssignViewModel
+@{
+    ViewData["Title"] = "Yetki Ata";
+}
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="header">
+            <h4 class="title">Sınav Sistemi</h4>
+            <p>Yetki Ata</p>
+        </div>
+        <div class="content table-responsive table-full-width">
+            <form method="post" asp-controller="User" asp-action="RoleAssign">
+                @Model.UserName <hr />
+                <select asp-for="RoleName" asp-items="@ViewBag.roles" class="form-control"></select>
+                <input type="hidden" asp-for="UserName" />
+                <button type="submit" class="btn btn-info">Ata</button>
+            </form>
+        </div>
+    </div>
+</div>

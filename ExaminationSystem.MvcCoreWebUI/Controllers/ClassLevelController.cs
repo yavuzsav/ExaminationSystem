@@ -30,11 +30,6 @@ namespace ExaminationSystem.MvcCoreWebUI.Controllers
                 PageSize = pageSize
             };
 
-            if (string.IsNullOrWhiteSpace(search))
-            {
-                return View(model);
-            }
-
             return View(model);
         }
 
