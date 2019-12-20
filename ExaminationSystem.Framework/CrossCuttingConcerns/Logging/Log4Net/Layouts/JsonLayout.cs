@@ -14,7 +14,10 @@ namespace ExaminationSystem.Framework.CrossCuttingConcerns.Logging.Log4Net.Layou
         public override void Format(TextWriter writer, LoggingEvent loggingEvent)
         {
             var logEvent = new SerializableLogEvent(loggingEvent);
-            var json = JsonConvert.SerializeObject(logEvent.Message, Formatting.Indented);
+            var json = JsonConvert.SerializeObject(logEvent.Message, Formatting.Indented, new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            });
             writer.WriteLine(json);
         }
     }

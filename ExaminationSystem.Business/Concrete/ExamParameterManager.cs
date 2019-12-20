@@ -5,9 +5,12 @@ using ExaminationSystem.Framework.Utilities.Results.BaseResults;
 using ExaminationSystem.Framework.Utilities.Results.SuccessResults;
 using ExaminationSystem.Models.Entities;
 using System.Linq;
+using ExaminationSystem.Business.BusinessAspects.Autofac;
 
 namespace ExaminationSystem.Business.Concrete
 {
+    [AuthenticationAspect]
+    [SecuredOperation("Admin")]
     public class ExamParameterManager : IExamParameterService
     {
         private readonly IExamParameterDal _examParameterDal;

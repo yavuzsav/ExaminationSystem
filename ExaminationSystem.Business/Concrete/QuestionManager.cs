@@ -1,4 +1,5 @@
 ﻿using ExaminationSystem.Business.Abstract;
+using ExaminationSystem.Business.BusinessAspects.Autofac;
 using ExaminationSystem.Business.Constants;
 using ExaminationSystem.Business.Helpers;
 using ExaminationSystem.Business.ValidationRules.FluentValidation;
@@ -13,15 +14,15 @@ using ExaminationSystem.Framework.Utilities.Helpers;
 using ExaminationSystem.Framework.Utilities.Results.BaseResults;
 using ExaminationSystem.Framework.Utilities.Results.ErrorResults;
 using ExaminationSystem.Framework.Utilities.Results.SuccessResults;
+using ExaminationSystem.Models.Dtos.User;
 using ExaminationSystem.Models.Entities;
-using ExaminationSystem.Models.IdentityEntities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ExaminationSystem.Models.Dtos.User;
 
 namespace ExaminationSystem.Business.Concrete
 {
+    [AuthenticationAspect]
     [PerformanceAspect(10)]
     [LogAspect(typeof(DatabaseLogger))]
     [TransactionScopeAspect]
@@ -40,8 +41,9 @@ namespace ExaminationSystem.Business.Concrete
             _userService = userService;
         }
 
+        [SecuredOperation("Admin")]
         [ValidationAspect(typeof(QuestionValidator))]
-        [CacheRemoveAspect("IQuestionService.Get")]
+        [CacheRemoveAspect("Get")]
         public IResult AddQuestion(Question question, string userName)
         {
             question.Id = CreateUniqueId.CreateId();
@@ -52,8 +54,9 @@ namespace ExaminationSystem.Business.Concrete
             return new SuccessResult(Messages.AddedSuccess);
         }
 
+        [SecuredOperation("Admin")]
         [ValidationAspect(typeof(QuestionValidator))]
-        [CacheRemoveAspect("IQuestionService.Get")]
+        [CacheRemoveAspect("Get")]
         public IResult UpdateQuestion(Question question, string userName)
         {
             question.ModifiedUserName = userName;
@@ -63,19 +66,22 @@ namespace ExaminationSystem.Business.Concrete
             return new SuccessResult(Messages.UpdatedSuccess);
         }
 
-        [CacheRemoveAspect("ICategoryService.Get")]
+        [SecuredOperation("Admin")]
+        [CacheRemoveAspect("Get")]
         public IResult DeleteQuestion(Question question)
         {
             _questionDal.Delete(question);
             return new SuccessResult(Messages.DeletedSuccess);
         }
 
+        [SecuredOperation("Admin")]
         [CacheAspect(120)]
         public IDataResult<List<Question>> GetAll()
         {
             return new SuccessDataResult<List<Question>>(_questionDal.Get().ToList());
         }
 
+        [SecuredOperation("Admin,Student")]
         public IDataResult<List<Question>> GetExam(string categoryId)
         {
             var parameter = _examParameterService.GetParameter().Data;
@@ -94,6 +100,7 @@ namespace ExaminationSystem.Business.Concrete
             //todo daha önce çözdüğü soruyu bir daha çekmesin
         }
 
+        [SecuredOperation("Admin,Student")]
         public IDataResult<ExamResult> FinishExam(List<string> questionIds, List<string> userAnswers, UserWithIdDto user)
         {
             int correct = 0;
@@ -147,18 +154,21 @@ namespace ExaminationSystem.Business.Concrete
             });
         }
 
+        [SecuredOperation("Admin")]
         [CacheAspect(120)]
         public IDataResult<List<Question>> GetByCategoryId(string categoryId)
         {
             return new SuccessDataResult<List<Question>>(_questionDal.Get(x => x.CategoryId == categoryId).ToList());
         }
 
+        [SecuredOperation("Admin")]
         [CacheAspect(120)]
         public IDataResult<List<Question>> GetByUserName(string userName)
         {
             return new SuccessDataResult<List<Question>>(_questionDal.Get(x => x.CreatedUserName == userName).ToList());
         }
 
+        [SecuredOperation("Admin")]
         [CacheAspect(120)]
         public IDataResult<Question> GetById(string id)
         {

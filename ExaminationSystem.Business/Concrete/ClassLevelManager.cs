@@ -1,4 +1,5 @@
 ﻿using ExaminationSystem.Business.Abstract;
+using ExaminationSystem.Business.BusinessAspects.Autofac;
 using ExaminationSystem.Business.Constants;
 using ExaminationSystem.Business.ValidationRules.FluentValidation;
 using ExaminationSystem.DataAccess.Abstract;
@@ -8,10 +9,8 @@ using ExaminationSystem.Framework.Aspects.Autofac.Performance;
 using ExaminationSystem.Framework.Aspects.Autofac.Transaction;
 using ExaminationSystem.Framework.Aspects.Autofac.Validation;
 using ExaminationSystem.Framework.CrossCuttingConcerns.Logging.Log4Net.Loggers;
-using ExaminationSystem.Framework.Extensions;
 using ExaminationSystem.Framework.Utilities.Helpers;
 using ExaminationSystem.Framework.Utilities.Results.BaseResults;
-using ExaminationSystem.Framework.Utilities.Results.ErrorResults;
 using ExaminationSystem.Framework.Utilities.Results.SuccessResults;
 using ExaminationSystem.Models.Entities;
 using System.Collections.Generic;
@@ -19,6 +18,8 @@ using System.Linq;
 
 namespace ExaminationSystem.Business.Concrete
 {
+    [AuthenticationAspect]
+    [SecuredOperation("Admin")]
     [PerformanceAspect(10)]
     [LogAspect(typeof(DatabaseLogger))]
     [TransactionScopeAspect]
@@ -32,7 +33,7 @@ namespace ExaminationSystem.Business.Concrete
         }
 
         [ValidationAspect(typeof(ClassLevelValidator))]
-        [CacheRemoveAspect("IClassLevelService.Get")]
+        [CacheRemoveAspect("Get")]
         public IResult Add(ClassLevel classLevel)
         {
             //var isDuplicate = _classLevelDal.Get().IsDuplicate(x => x.ClassLevelName, classLevel.ClassLevelName);
@@ -43,7 +44,7 @@ namespace ExaminationSystem.Business.Concrete
         }
 
         [ValidationAspect(typeof(ClassLevelValidator))]
-        [CacheRemoveAspect("IClassLevelService.Get")]
+        [CacheRemoveAspect("Get")]
         public IResult Update(ClassLevel classLevel)
         {
             //var isDuplicate = _classLevelDal.Get().IsDuplicate(x => x.ClassLevelName, classLevel.ClassLevelName);
@@ -52,7 +53,7 @@ namespace ExaminationSystem.Business.Concrete
             return new SuccessResult(Messages.UpdatedSuccess);
         }
 
-        [CacheRemoveAspect("IClassLevelService.Get")]
+        [CacheRemoveAspect("Get")]
         public IResult Delete(ClassLevel classLevel)
         {
             _classLevelDal.Delete(classLevel);

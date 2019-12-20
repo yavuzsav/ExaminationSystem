@@ -6,9 +6,12 @@ using ExaminationSystem.Framework.Utilities.Results.SuccessResults;
 using ExaminationSystem.Models.Entities;
 using System.Collections.Generic;
 using System.Linq;
+using ExaminationSystem.Business.BusinessAspects.Autofac;
 
 namespace ExaminationSystem.Business.Concrete
 {
+    [AuthenticationAspect]
+    [SecuredOperation("Admin")]
     public class SolvedQuestionManager : ISolvedQuestionService
     {
         private readonly ISolvedQuestionDal _solvedQuestionDal;

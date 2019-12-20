@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using ExaminationSystem.Business.BusinessAspects.Autofac;
 
 namespace ExaminationSystem.Business.Concrete
 {
@@ -19,6 +20,8 @@ namespace ExaminationSystem.Business.Concrete
         {
         }
 
+        [AuthenticationAspect]
+        [SecuredOperation("Admin")]
         public IDataResult<List<UserDto>> GetAll()
         {
             var appUsers = UserManager.Users.ToList();
@@ -32,11 +35,15 @@ namespace ExaminationSystem.Business.Concrete
             return new SuccessDataResult<List<UserDto>>(users);
         }
 
+        [AuthenticationAspect]
+        [SecuredOperation("Admin")]
         public IDataResult<List<Claim>> GetClaims(UserDto user)
         {
             return new SuccessDataResult<List<Claim>>(UserManager.GetClaimsAsync(user.Adapt<AppUser>()).Result.ToList());
         }
 
+        [AuthenticationAspect]
+        [SecuredOperation("Admin")]
         public IResult Update(UserDto user, string userName)
         {
             AppUser appUser = UserManager.FindByNameAsync(user.UserName).Result;

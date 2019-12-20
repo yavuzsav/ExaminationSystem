@@ -1,4 +1,5 @@
 ﻿using ExaminationSystem.Business.Abstract;
+using ExaminationSystem.Business.BusinessAspects.Autofac;
 using ExaminationSystem.Business.Constants;
 using ExaminationSystem.Business.ValidationRules.FluentValidation;
 using ExaminationSystem.DataAccess.Abstract;
@@ -21,6 +22,8 @@ using System.Linq;
 
 namespace ExaminationSystem.Business.Concrete
 {
+    [AuthenticationAspect]
+    [SecuredOperation("Admin")]
     [PerformanceAspect(10)]
     [LogAspect(typeof(DatabaseLogger))]
     [TransactionScopeAspect]
@@ -46,7 +49,7 @@ namespace ExaminationSystem.Business.Concrete
         }
 
         [ValidationAspect(typeof(CategoryValidator))]
-        [CacheRemoveAspect("ICategoryService.Get")]
+        [CacheRemoveAspect("Get")]
         public IResult Add(Category category, string userName)
         {
             IResult result = BusinessRules.Run(CheckIfCategoryExists(category.CategoryName, category.ClassLevelId));
@@ -65,7 +68,7 @@ namespace ExaminationSystem.Business.Concrete
         }
 
         [ValidationAspect(typeof(CategoryValidator))]
-        [CacheRemoveAspect("ICategoryService.Get")]
+        [CacheRemoveAspect("Get")]
         public IResult Update(Category category, string userName)
         {
             IResult result = BusinessRules.Run(CheckIfCategoryExists(category.CategoryName, category.ClassLevelId, category.Id));
@@ -82,7 +85,7 @@ namespace ExaminationSystem.Business.Concrete
             return new SuccessResult(Messages.UpdatedSuccess);
         }
 
-        [CacheRemoveAspect("ICategoryService.Get")]
+        [CacheRemoveAspect("Get")]
         public IResult Delete(Category category)
         {
             _categoryDal.Delete(category);

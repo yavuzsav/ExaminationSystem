@@ -1,4 +1,5 @@
-﻿using ExaminationSystem.Models.Base;
+﻿using System.Collections.Generic;
+using ExaminationSystem.Models.Base;
 
 namespace ExaminationSystem.Models.Entities
 {
@@ -6,5 +7,7 @@ namespace ExaminationSystem.Models.Entities
     {
         public string ClassLevelName { get; set; }
         public string Description { get; set; }
+
+        public virtual ICollection<Category> Categories { get; set; }
     }
 }
