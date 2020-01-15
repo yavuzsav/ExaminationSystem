@@ -7,10 +7,8 @@ namespace ExaminationSystem.DataAccess.Concrete.EntityFramework.Contexts
 {
     public class ExaminationSystemContext : DbContext
     {
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public ExaminationSystemContext(DbContextOptions<ExaminationSystemContext> options) : base(options)
         {
-            optionsBuilder.UseLazyLoadingProxies();
-            optionsBuilder.UseSqlServer(@"Server=DESKTOP-E6T8364\SQLEXPRESS;Database=ExaminationSystem;Integrated Security=true");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ExaminationSystem.DataAccess.Concrete.EntityFramework
 {
-    public class EfSolvedQuestionDal : EfRepositoryBase<SolvedQuestion, ExaminationSystemContext>, ISolvedQuestionDal
+    public class EfSolvedQuestionDal : EfRepositoryBase<SolvedQuestion>, ISolvedQuestionDal
     {
         public EfSolvedQuestionDal(ExaminationSystemContext context) : base(context)
         {

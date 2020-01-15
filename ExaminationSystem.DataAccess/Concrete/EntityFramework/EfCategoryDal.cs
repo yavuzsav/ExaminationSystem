@@ -5,7 +5,7 @@ using ExaminationSystem.Models.Entities;
 
 namespace ExaminationSystem.DataAccess.Concrete.EntityFramework
 {
-    public class EfCategoryDal : EfRepositoryBase<Category, ExaminationSystemContext>, ICategoryDal
+    public class EfCategoryDal : EfRepositoryBase<Category>, ICategoryDal
     {
         public EfCategoryDal(ExaminationSystemContext context) : base(context)
         {

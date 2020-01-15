@@ -2,11 +2,10 @@
 using ExaminationSystem.DataAccess.Concrete.EntityFramework.Contexts;
 using ExaminationSystem.Framework.Infrastructure;
 using ExaminationSystem.Models.Entities;
-using Microsoft.EntityFrameworkCore;
 
 namespace ExaminationSystem.DataAccess.Concrete.EntityFramework
 {
-    public class EfQuestionDal : EfRepositoryBase<Question, ExaminationSystemContext>, IQuestionDal
+    public class EfQuestionDal : EfRepositoryBase<Question>, IQuestionDal
     {
         public EfQuestionDal(ExaminationSystemContext context) : base(context)
         {

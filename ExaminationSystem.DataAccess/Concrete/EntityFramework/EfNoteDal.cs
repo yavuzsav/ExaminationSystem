@@ -5,7 +5,7 @@ using ExaminationSystem.Models.Entities;
 
 namespace ExaminationSystem.DataAccess.Concrete.EntityFramework
 {
-    public class EfNoteDal : EfRepositoryBase<Note, ExaminationSystemContext>, INoteDal
+    public class EfNoteDal : EfRepositoryBase<Note>, INoteDal
     {
         public EfNoteDal(ExaminationSystemContext context) : base(context)
         {

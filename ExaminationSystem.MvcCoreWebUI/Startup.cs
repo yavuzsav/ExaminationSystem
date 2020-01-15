@@ -31,7 +31,11 @@ namespace ExaminationSystem.MvcCoreWebUI
                 new CoreModule()
             });
 
-            services.AddDbContext<ExaminationSystemContext>();
+            services.AddDbContext<ExaminationSystemContext>(options =>
+            {
+                options.UseLazyLoadingProxies();
+                options.UseSqlServer(Configuration.GetConnectionString("ExaminationSystem"));
+            });
 
             services.AddDbContext<AppIdentityDbContext>(options =>
             {

@@ -5,7 +5,7 @@ using ExaminationSystem.Models.Entities;
 
 namespace ExaminationSystem.DataAccess.Concrete.EntityFramework
 {
-    public class EfClassLevelDal : EfRepositoryBase<ClassLevel, ExaminationSystemContext>, IClassLevelDal
+    public class EfClassLevelDal : EfRepositoryBase<ClassLevel>, IClassLevelDal
     {
         public EfClassLevelDal(ExaminationSystemContext context) : base(context)
         {

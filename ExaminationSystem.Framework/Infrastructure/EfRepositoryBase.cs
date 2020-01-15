@@ -7,9 +7,8 @@ using System.Linq.Expressions;
 
 namespace ExaminationSystem.Framework.Infrastructure
 {
-    public class EfRepositoryBase<TEntity, TContext> : IRepositoryBase<TEntity>
+    public class EfRepositoryBase<TEntity> : IRepositoryBase<TEntity>
         where TEntity : class, IEntity, new()
-        where TContext : DbContext, new()
     {
         private readonly DbContext _context;
         private readonly DbSet<TEntity> _dbSet;
