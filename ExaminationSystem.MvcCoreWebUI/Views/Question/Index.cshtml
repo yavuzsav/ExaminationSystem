@@ -25,21 +25,28 @@ else
         <div class="panel-group" id="accordion">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#@i">
+                    <div class="panel-title">
+                        <div>
+                            <b>Soru : </b>
+                            <a data-toggle="collapse" data-parent="#accordion" href="#@i" class="text-primary">
 
-                            @if (Model.Questions[i].QuestionContent.Length < 60)
-                            {
-                                @Model.Questions[i].QuestionContent
-                            }
-                            else
-                            {
-                                @Model.Questions[i].QuestionContent.Substring(0, 60);
-                            }
-                        </a>
-                        <p> <b>Sınıfı : </b> @Model.Questions[i].Category.ClassLevel.ClassLevelName</p>
-                        <p> <b>Kategori : </b> @Model.Questions[i].Category.CategoryName</p>
-                    </h4>
+                                @if (Model.Questions[i].QuestionContent.Length < 60)
+                                {
+                                    @Model.Questions[i].QuestionContent
+                                }
+                                else
+                                {
+                                    @Model.Questions[i].QuestionContent.Substring(0, 60);
+                                }
+                            </a>
+                        </div>
+                        <div>
+                            <b>Sınıfı : </b> <span class="text-warning">@Model.Questions[i].Category.ClassLevel.ClassLevelName</span>
+                        </div>
+                        <div>
+                            <b>Kategori : </b> <span class="text-warning">@Model.Questions[i].Category.CategoryName</span>
+                        </div>
+                    </div>
                 </div>
                 <div id="@i" class="panel-collapse collapse">
                     <div class="panel-body">

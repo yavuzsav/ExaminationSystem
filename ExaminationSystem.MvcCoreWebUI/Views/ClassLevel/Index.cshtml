@@ -4,41 +4,27 @@
     ViewData["Title"] = "Tüm Sınıflar";
 }
 
-<div class="col-md-12">
-    <div class="card">
-        <div class="header">
-            <h4 class="title">Sınav Sistemi</h4>
-            <p>Tüm Sınıflar</p>
-            <form asp-action="Index" asp-controller="ClassLevel" method="get">
-                <p class="navbar-right">
-                    <input type="text" name="search" placeholder="Sınıf Adı Giriniz" />
-                    <input type="submit" class="btn btn-info" value="Ara" />
-                </p>
-            </form>
-        </div>
-        <div class="content table-responsive table-full-width">
-            <table class="table table-hover table-striped">
-                <thead>
-                <th class="text-center">Sınıf Adı</th>
-                <th class="text-center">Açıklama</th>
-                <th></th>
-                </thead>
-                <tbody>
-                    @foreach (var classLevel in Model.ClassLevels)
-                    {
-                        <tr class="text-center">
-                            <td>@classLevel.ClassLevelName</td>
-                            <td>@classLevel.Description</td>
-                            <td>
-                                <a class="btn btn-info" asp-action="Update" asp-controller="ClassLevel" asp-route-id="@classLevel.Id">Güncelle</a>
-                                <a class="btn btn-danger" asp-action="Delete" asp-controller="ClassLevel" asp-route-id="@classLevel.Id">Sil</a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    </div>
+<div class="content table-responsive">
+    <table id="dataTable" class="table table-hover table-striped">
+        <thead>
+        <th class="text-center">Sınıf Adı</th>
+        <th class="text-center">Açıklama</th>
+        <th class="text-center">İşlemler</th>
+        </thead>
+        <tbody>
+            @foreach (var classLevel in Model.ClassLevels)
+            {
+                <tr class="text-center">
+                    <td>@classLevel.ClassLevelName</td>
+                    <td>@classLevel.Description</td>
+                    <td>
+                        <a class="btn btn-info" asp-action="Update" asp-controller="ClassLevel" asp-route-id="@classLevel.Id">Güncelle</a>
+                        <a class="btn btn-danger" asp-action="Delete" asp-controller="ClassLevel" asp-route-id="@classLevel.Id">Sil</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
 
-<list-pager controller-name="ClassLevel" current-page="@Model.CurrentPage" page-count="@Model.PageCount" page-size="@Model.PageSize"></list-pager>
+<script src="~/assets/js/dataTableApp.js"></script>

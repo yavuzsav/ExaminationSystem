@@ -1,9 +1,7 @@
 ﻿using ExaminationSystem.Business.Abstract;
 using ExaminationSystem.Models.Entities;
-using ExaminationSystem.MvcCoreWebUI.HelperMethods;
 using ExaminationSystem.MvcCoreWebUI.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 
 namespace ExaminationSystem.MvcCoreWebUI.Controllers
 {
@@ -16,18 +14,13 @@ namespace ExaminationSystem.MvcCoreWebUI.Controllers
             _classLevelService = classLevelService;
         }
 
-        public IActionResult Index(string search = null, int page = 1)
+        public IActionResult Index()
         {
-            int pageSize = 10;
-            var list = _classLevelService.GetAll().Data;
-            var searchedList = list.Where(x => search != null && x.ClassLevelName.ToLower().Contains(search.ToLower())).ToList();
+            var list = _classLevelService.GetAll().Data;         
 
             ClassLevelListViewModel model = new ClassLevelListViewModel
             {
-                ClassLevels = PagingListSelectBySearch.SelectList(list, searchedList, page, pageSize),
-                PageCount = PagingListSelectBySearch.GetPageCount(list, searchedList, pageSize),
-                CurrentPage = page,
-                PageSize = pageSize
+                ClassLevels = list
             };
 
             return View(model);

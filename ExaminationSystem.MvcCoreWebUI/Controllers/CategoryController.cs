@@ -1,10 +1,8 @@
 ﻿using ExaminationSystem.Business.Abstract;
 using ExaminationSystem.Models.Entities;
-using ExaminationSystem.MvcCoreWebUI.HelperMethods;
 using ExaminationSystem.MvcCoreWebUI.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Linq;
 
 namespace ExaminationSystem.MvcCoreWebUI.Controllers
 {
@@ -22,18 +20,13 @@ namespace ExaminationSystem.MvcCoreWebUI.Controllers
             _questionService = questionService;
         }
 
-        public IActionResult Index(string search = null, int page = 1)
+        public IActionResult Index()
         {
-            int pageSize = 15;
             var list = _categoryService.GetList().Data;
-            var searchedList = list.Where(x => search != null && x.CategoryName.ToLower().Contains(search.ToLower())).ToList();
 
             CategoryListViewModel model = new CategoryListViewModel
             {
-                Categories = PagingListSelectBySearch.SelectList(list, searchedList, page, pageSize),
-                PageCount = PagingListSelectBySearch.GetPageCount(list, searchedList, pageSize),
-                PageSize = pageSize,
-                CurrentPage = page
+                Categories = list
             };
 
             return View(model);
