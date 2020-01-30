@@ -10,6 +10,7 @@
         </div>
         <div class="content">
             <form asp-action="Add" asp-controller="Question">
+                <div class="text-danger" asp-validation-summary="ModelOnly"></div>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">

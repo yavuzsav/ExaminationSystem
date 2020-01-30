@@ -9,9 +9,9 @@
             <h4 class="title">Sınav Sistemi</h4>
             <p>Sınava Başlamak İçin Kategori Seçiniz.</p>
         </div>
-        <div class="content table-responsive table-full-width">
+        <div class="content table-responsive">
             <form asp-action="GetExam" asp-controller="Exam">
-                <table class="table table-hover table-striped">
+                <table id="dataTable" class="table table-hover table-striped">
                     <thead>
                     <th class="text-center">Sınıf</th>
                     <th class="text-center">Kategori Adı</th>
@@ -36,3 +36,5 @@
         </div>
     </div>
 </div>
+
+<script src="~/assets/js/dataTableApp.js"></script>

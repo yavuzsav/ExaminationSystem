@@ -4,7 +4,6 @@ using ExaminationSystem.MvcCoreWebUI.HelperMethods;
 using ExaminationSystem.MvcCoreWebUI.ViewModels.Users;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace ExaminationSystem.MvcCoreWebUI.Controllers
@@ -22,28 +21,18 @@ namespace ExaminationSystem.MvcCoreWebUI.Controllers
             _roleService = roleService;
         }
 
-        public IActionResult Index(string searchString = null, int page = 1)
+        public IActionResult Index()
         {
             int pageSize = 50;
             var list = _userService.GetAll().Data;
-            var searchedList = list.Where(x => searchString != null &&
-                                               (x.Email.ToLower().Contains(searchString.ToLower()) ||
-                                                x.UserName.ToLower().Contains(searchString.ToLower())
-                                               )).ToList();
-            List<string> usersRoles = searchedList.Count == 0 ?
-                list.Select(user => _roleService.GetRoleNamesByUser(user).Data).ToList()
-                : searchedList.Select(user => _roleService.GetRoleNamesByUser(user).Data).ToList();
+            var roles = list.Select(user => _roleService.GetRoleNamesByUser(user).Data).ToList();
 
             UserListViewModel model = new UserListViewModel
             {
-                Users = PagingListSelectBySearch.SelectList(list, searchedList, page, pageSize),
-                UsersRoles = usersRoles,
-                PageCount = PagingListSelectBySearch.GetPageCount(list, searchedList, pageSize),
-                PageSize = pageSize,
-                CurrentPage = page
+                Users = list,
+                UsersRoles = roles,
             };
 
-            ViewBag.title = "Tüm Kullanıcılar";
             return View(model);
         }
 
@@ -56,7 +45,6 @@ namespace ExaminationSystem.MvcCoreWebUI.Controllers
                                                (x.Email.ToLower().Contains(searchString.ToLower()) ||
                                                 x.UserName.ToLower().Contains(searchString.ToLower())
                                                 )).ToList();
-            //var searchedList = list.Where(x => search != null && x.CategoryName.ToLower().Contains(search.ToLower())).ToList();
 
             UserListViewModel model = new UserListViewModel
             {

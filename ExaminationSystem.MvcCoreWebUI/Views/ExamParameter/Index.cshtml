@@ -5,6 +5,7 @@
 
 @if (Model == null)
 {
+    <div class="text-danger" asp-validation-summary="ModelOnly"></div>
     <p class="text-danger">Bir Parametre girişi yapılmamıştır. Lütfen paramatre ekleyiniz.</p>
 
     <form asp-action="ExamParameterAssign" asp-controller="ExamParameter" method="post">
@@ -31,6 +32,7 @@
 }
 else
 {
+    <div class="text-danger" asp-validation-summary="ModelOnly"></div>
     <form asp-action="ExamParameterAssign" asp-controller="ExamParameter" method="post">
         <div class="form-group row">
             <label for="example-number-input" class="col-md-2 col-form-label">Sınavda Çıkacak Soru Sayısı</label>

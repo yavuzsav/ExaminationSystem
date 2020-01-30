@@ -29,6 +29,8 @@ namespace ExaminationSystem.Framework.Utilities.Interceptors.Autofac
 
             try
             {
+                if (invocation.ReturnValue != null)
+                    return;
                 invocation.Proceed();
             }
             catch (Exception e)

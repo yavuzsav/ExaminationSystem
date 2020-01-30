@@ -2,6 +2,7 @@
 using ExaminationSystem.Framework.CrossCuttingConcerns.Validation.FluentValidation;
 using ExaminationSystem.Framework.Utilities.Interceptors.Autofac;
 using ExaminationSystem.Framework.Utilities.Messages;
+using ExaminationSystem.Framework.Utilities.Results.ErrorResults;
 using FluentValidation;
 using System;
 using System.Linq;
@@ -31,7 +32,14 @@ namespace ExaminationSystem.Framework.Aspects.Autofac.Validation
             var entities = invocation.Arguments.Where(x => x.GetType() == entityType);
             foreach (var entity in entities)
             {
-                ValidationTool.Validate(validator, entity);
+                try
+                {
+                    ValidationTool.Validate(validator, entity);
+                }
+                catch (System.Exception e)
+                {
+                    invocation.ReturnValue = new ErrorResult(e.Message);
+                }
             }
         }
     }
