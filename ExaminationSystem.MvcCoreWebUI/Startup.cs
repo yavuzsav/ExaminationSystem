@@ -3,6 +3,7 @@ using ExaminationSystem.Framework.DependencyResolvers;
 using ExaminationSystem.Framework.Extensions;
 using ExaminationSystem.Framework.Utilities.IoC;
 using ExaminationSystem.Models.IdentityEntities;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -73,7 +74,8 @@ namespace ExaminationSystem.MvcCoreWebUI
                 options.AccessDeniedPath = new PathString("/Member/AccessDenied");
             });
 
-            services.AddMvc(option => { option.EnableEndpointRouting = false; });
+            services.AddMvc(option => { option.EnableEndpointRouting = false; })
+                .AddFluentValidation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
