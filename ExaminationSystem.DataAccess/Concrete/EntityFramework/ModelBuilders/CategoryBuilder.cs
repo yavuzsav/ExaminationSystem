@@ -12,7 +12,6 @@ namespace ExaminationSystem.DataAccess.Concrete.EntityFramework.ModelBuilders
             entityBuilder.HasKey(x => x.Id);
             entityBuilder.Property(x => x.CategoryName).IsRequired().HasMaxLength(100);
             entityBuilder.Property(x => x.OnCreated).IsRequired().HasDefaultValue(DateTime.Now);
-            entityBuilder.Property(x => x.CreatedUserName).IsRequired();
         }
     }
 }

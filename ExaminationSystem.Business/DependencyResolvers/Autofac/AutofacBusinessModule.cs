@@ -6,6 +6,7 @@ using ExaminationSystem.Business.Concrete;
 using ExaminationSystem.DataAccess.Abstract;
 using ExaminationSystem.DataAccess.Concrete.EntityFramework;
 using ExaminationSystem.Framework.Utilities.Interceptors.Autofac;
+using ExaminationSystem.Framework.Utilities.Security.User;
 
 namespace ExaminationSystem.Business.DependencyResolvers.Autofac
 {
@@ -31,6 +32,9 @@ namespace ExaminationSystem.Business.DependencyResolvers.Autofac
             builder.RegisterType<UserManager>().As<IUserService>();
             builder.RegisterType<AuthManager>().As<IAuthService>();
             builder.RegisterType<RoleManager>().As<IRoleService>();
+            builder.RegisterType<EfUserDal>().As<IUserDal>();
+            builder.RegisterType<UserAccessor>().As<IUserAccessor>();
+
 
             builder.RegisterType<ClassLevelManager>().As<IClassLevelService>();
             builder.RegisterType<EfClassLevelDal>().As<IClassLevelDal>();

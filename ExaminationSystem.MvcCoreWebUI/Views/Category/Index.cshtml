@@ -20,7 +20,7 @@
                     <td class="list-group-item list-group-item-info" style="display: table-cell">@category.ClassLevel.ClassLevelName</td>
                     <td>@category.CategoryName</td>
                     <td>@category.OnCreated.ToShortDateString()</td>
-                    <td>@category.CreatedUserName</td>
+                    <td>@category.CreatedUser.UserName</td>
                     <td>
                         <a class="btn btn-success" asp-action="GetQuestions" asp-controller="Category" asp-route-id="@category.Id">Soruları</a>
                         <a class="btn btn-info" asp-action="Update" asp-controller="Category" asp-route-id="@category.Id">Güncelle</a>

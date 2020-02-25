@@ -14,6 +14,7 @@ using ExaminationSystem.Framework.Utilities.Helpers;
 using ExaminationSystem.Framework.Utilities.Results.BaseResults;
 using ExaminationSystem.Framework.Utilities.Results.ErrorResults;
 using ExaminationSystem.Framework.Utilities.Results.SuccessResults;
+using ExaminationSystem.Framework.Utilities.Security.User;
 using ExaminationSystem.Models.Dtos.User;
 using ExaminationSystem.Models.Entities;
 using System;
@@ -32,13 +33,17 @@ namespace ExaminationSystem.Business.Concrete
         private readonly IExamParameterService _examParameterService;
         private readonly INoteService _noteService;
         private readonly IUserService _userService;
+        private readonly IUserDal _userDal;
+        private readonly IUserAccessor _userAccessor;
 
-        public QuestionManager(IQuestionDal questionDal, IExamParameterService examParameterService, INoteService noteService, IUserService userService)
+        public QuestionManager(IQuestionDal questionDal, IExamParameterService examParameterService, INoteService noteService, IUserService userService, IUserDal userDal, IUserAccessor userAccessor)
         {
             _questionDal = questionDal;
             _examParameterService = examParameterService;
             _noteService = noteService;
             _userService = userService;
+            _userDal = userDal;
+            _userAccessor = userAccessor;
         }
 
         [SecuredOperation("Admin")]
@@ -47,7 +52,7 @@ namespace ExaminationSystem.Business.Concrete
         public IResult AddQuestion(Question question, string userName)
         {
             question.Id = CreateUniqueId.CreateId();
-            question.CreatedUserName = userName;
+            question.CreatedUser = _userDal.GetByUserName(_userAccessor.GetCurrentUserName());
             question.OnCreated = DateTime.Now;
 
             _questionDal.Insert(question);
@@ -59,7 +64,7 @@ namespace ExaminationSystem.Business.Concrete
         [CacheRemoveAspect("Get")]
         public IResult UpdateQuestion(Question question, string userName)
         {
-            question.ModifiedUserName = userName;
+            question.ModifiedUser = _userDal.GetByUserName(_userAccessor.GetCurrentUserName());
             question.OnModified = DateTime.Now;
 
             _questionDal.Update(question);
@@ -165,7 +170,7 @@ namespace ExaminationSystem.Business.Concrete
         [CacheAspect(120)]
         public IDataResult<List<Question>> GetByUserName(string userName)
         {
-            return new SuccessDataResult<List<Question>>(_questionDal.Get(x => x.CreatedUserName == userName).ToList());
+            return new SuccessDataResult<List<Question>>(_questionDal.Get(x => x.CreatedUser.UserName == userName).ToList());
         }
 
         [SecuredOperation("Admin")]

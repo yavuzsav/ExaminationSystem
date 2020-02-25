@@ -56,7 +56,7 @@ else
                         <p><b>D -)</b> @Model.Questions[i].D</p>
                         <p class="list-group-item list-group-item-info"><b>Doğru Cevap : </b> @Model.Questions[i].CorrectAnswer </p>
                         <p> <b>Eklenme Tarihi : </b> @Model.Questions[i].OnCreated.ToShortDateString()</p>
-                        <p> <b>Ekleyen (Kullanıcı Adı) : </b> @Model.Questions[i].CreatedUserName</p>
+                        <p> <b>Ekleyen (Kullanıcı Adı) : </b> @Model.Questions[i].CreatedUser.UserName</p>
                         <p> <b>Kategori : </b> @Model.Questions[i].Category.CategoryName</p>
 
                         <br />

@@ -1,13 +1,15 @@
 ﻿using ExaminationSystem.DataAccess.Concrete.EntityFramework.ModelBuilders;
 using ExaminationSystem.Framework.Entities.Concrete;
 using ExaminationSystem.Models.Entities;
+using ExaminationSystem.Models.IdentityEntities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace ExaminationSystem.DataAccess.Concrete.EntityFramework.Contexts
 {
-    public class ExaminationSystemContext : DbContext
+    public class ExaminationSystemContext : IdentityDbContext<AppUser, AppRole, string>
     {
-        public ExaminationSystemContext(DbContextOptions<ExaminationSystemContext> options) : base(options)
+        public ExaminationSystemContext(DbContextOptions options) : base(options)
         {
         }
 
@@ -21,22 +23,16 @@ namespace ExaminationSystem.DataAccess.Concrete.EntityFramework.Contexts
             new ExamPatameterBuilder(modelBuilder.Entity<ExamParameter>());
             new SolvedQuestionBuilder(modelBuilder.Entity<SolvedQuestion>());
 
-            //modelBuilder.Entity<ClassLevel>().HasMany(x => x.Categories).WithOne().HasForeignKey(x => x.ClassLevelId).OnDelete(DeleteBehavior.NoAction);
             modelBuilder.Entity<Category>().HasOne(x => x.ClassLevel).WithMany(x => x.Categories)
                 .HasForeignKey(x => x.ClassLevelId).OnDelete(DeleteBehavior.Cascade);
 
-            //modelBuilder.Entity<Category>().HasMany(x => x.Questions).WithOne().HasForeignKey(x => x.CategoryId)
-            //    .OnDelete(DeleteBehavior.NoAction);
             modelBuilder.Entity<Question>().HasOne(x => x.Category).WithMany(x => x.Questions)
                 .HasForeignKey(x => x.CategoryId).OnDelete(DeleteBehavior.Cascade);
 
-            //modelBuilder.Entity<Category>().HasMany(x => x.Notes).WithOne().HasForeignKey(x => x.CategoryId)
-            //    .OnDelete(DeleteBehavior.NoAction);
             modelBuilder.Entity<Note>().HasOne(x => x.Category).WithMany(x => x.Notes).HasForeignKey(x => x.CategoryId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            //todo data seed
-            SeedData.SeedData.Seed(modelBuilder);
+            base.OnModelCreating(modelBuilder);
         }
 
         public DbSet<Category> Categories { get; set; }

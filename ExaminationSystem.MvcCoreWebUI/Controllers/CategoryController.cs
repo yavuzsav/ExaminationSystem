@@ -11,7 +11,6 @@ namespace ExaminationSystem.MvcCoreWebUI.Controllers
         private readonly IClassLevelService _classLevelService;
         private readonly ICategoryService _categoryService;
         private readonly IQuestionService _questionService;
-        private string CurrentUserName => User.Identity.Name ?? "Anonymous";
 
         public CategoryController(ICategoryService categoryService, IClassLevelService classLevelService, IQuestionService questionService)
         {
@@ -54,7 +53,7 @@ namespace ExaminationSystem.MvcCoreWebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = _categoryService.Add(category, CurrentUserName);
+                var result = _categoryService.Add(category);
 
                 if (result.Success)
                 {
@@ -94,7 +93,7 @@ namespace ExaminationSystem.MvcCoreWebUI.Controllers
                 current.CategoryName = category.CategoryName;
                 current.ClassLevelId = category.ClassLevelId;
 
-                var result = _categoryService.Update(current, CurrentUserName);
+                var result = _categoryService.Update(current);
 
                 if (result.Success)
                 {

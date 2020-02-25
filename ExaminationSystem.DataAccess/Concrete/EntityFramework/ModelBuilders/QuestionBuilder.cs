@@ -16,7 +16,6 @@ namespace ExaminationSystem.DataAccess.Concrete.EntityFramework.ModelBuilders
             entityBuilder.Property(x => x.C).IsRequired();
             entityBuilder.Property(x => x.D).IsRequired();
             entityBuilder.Property(x => x.CorrectAnswer).IsRequired();
-            entityBuilder.Property(x => x.CreatedUserName).IsRequired();
             entityBuilder.Property(x => x.OnCreated).IsRequired().HasDefaultValue(DateTime.Now);
         }
     }

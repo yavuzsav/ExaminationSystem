@@ -38,15 +38,9 @@ namespace ExaminationSystem.MvcCoreWebUI
                 options.UseSqlServer(Configuration.GetConnectionString("ExaminationSystem"));
             });
 
-            services.AddDbContext<AppIdentityDbContext>(options =>
-            {
-                //options.UseSqlServer(Configuration["ConnectionString:DefaultConnectionString"]);
-                options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection"));
-            });
-
             services.AddIdentity<AppUser, AppRole>(options =>
                 {
-                    options.Password.RequiredLength = 4; //Todo : 8 yapýlabilir.
+                    options.Password.RequiredLength = 4;
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequireLowercase = false;
                     options.Password.RequireUppercase = false;
@@ -54,7 +48,7 @@ namespace ExaminationSystem.MvcCoreWebUI
 
                     options.User.RequireUniqueEmail = true;
                     options.User.AllowedUserNameCharacters = "abcçdefgðhýijklmnopqrsþtuüvwxyzABCÇDEFGÐHIÝJKLMNOPQRSÞTUÜVWXYZ0123456789-._";
-                }).AddEntityFrameworkStores<AppIdentityDbContext>().AddDefaultTokenProviders();
+                }).AddEntityFrameworkStores<ExaminationSystemContext>().AddDefaultTokenProviders();
 
             CookieBuilder cookieBuilder = new CookieBuilder
             {
@@ -86,7 +80,7 @@ namespace ExaminationSystem.MvcCoreWebUI
                 app.UseDeveloperExceptionPage();
             }
             //app.UseHsts();
-            app.ConfigureCustomExceptionMiddleware();
+            //app.ConfigureCustomExceptionMiddleware();
 
             app.UseStaticFiles();
 

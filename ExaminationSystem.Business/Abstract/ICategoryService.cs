@@ -10,9 +10,9 @@ namespace ExaminationSystem.Business.Abstract
 
         IDataResult<Category> GetById(string categoryId);
 
-        IResult Add(Category category, string userName);
+        IResult Add(Category category);
 
-        IResult Update(Category category, string userName);
+        IResult Update(Category category);
 
         IResult Delete(Category category);
 

@@ -15,6 +15,7 @@ using ExaminationSystem.Framework.Utilities.Helpers;
 using ExaminationSystem.Framework.Utilities.Results.BaseResults;
 using ExaminationSystem.Framework.Utilities.Results.ErrorResults;
 using ExaminationSystem.Framework.Utilities.Results.SuccessResults;
+using ExaminationSystem.Framework.Utilities.Security.User;
 using ExaminationSystem.Models.Entities;
 using System;
 using System.Collections.Generic;
@@ -30,10 +31,14 @@ namespace ExaminationSystem.Business.Concrete
     public class CategoryManager : ICategoryService
     {
         private readonly ICategoryDal _categoryDal;
+        private readonly IUserDal _userDal;
+        private readonly IUserAccessor _userAccessor;
 
-        public CategoryManager(ICategoryDal categoryDal)
+        public CategoryManager(ICategoryDal categoryDal, IUserDal userDal, IUserAccessor userAccessor)
         {
             _categoryDal = categoryDal;
+            _userDal = userDal;
+            _userAccessor = userAccessor;
         }
 
         [CacheAspect(120)]
@@ -50,7 +55,7 @@ namespace ExaminationSystem.Business.Concrete
 
         [ValidationAspect(typeof(CategoryValidator))]
         [CacheRemoveAspect("Get")]
-        public IResult Add(Category category, string userName)
+        public IResult Add(Category category)
         {
             IResult result = BusinessRules.Run(CheckIfCategoryExists(category.CategoryName, category.ClassLevelId));
 
@@ -60,7 +65,7 @@ namespace ExaminationSystem.Business.Concrete
             }
 
             category.Id = CreateUniqueId.CreateId();
-            category.CreatedUserName = userName;
+            category.CreatedUser = _userDal.GetByUserName(_userAccessor.GetCurrentUserName());
             category.OnCreated = DateTime.Now;
 
             _categoryDal.Insert(category);
@@ -69,7 +74,7 @@ namespace ExaminationSystem.Business.Concrete
 
         [ValidationAspect(typeof(CategoryValidator))]
         [CacheRemoveAspect("Get")]
-        public IResult Update(Category category, string userName)
+        public IResult Update(Category category)
         {
             IResult result = BusinessRules.Run(CheckIfCategoryExists(category.CategoryName, category.ClassLevelId, category.Id));
 
@@ -78,7 +83,7 @@ namespace ExaminationSystem.Business.Concrete
                 return result;
             }
 
-            category.ModifiedUserName = userName;
+            category.ModifiedUser = _userDal.GetByUserName(_userAccessor.GetCurrentUserName());
             category.OnModified = DateTime.Now;
 
             _categoryDal.Update(category);

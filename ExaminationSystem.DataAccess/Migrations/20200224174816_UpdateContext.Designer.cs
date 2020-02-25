@@ -4,20 +4,234 @@ using ExaminationSystem.DataAccess.Concrete.EntityFramework.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ExaminationSystem.DataAccess.Migrations
 {
-    [DbContext(typeof(AppIdentityDbContext))]
-    partial class AppIdentityDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(ExaminationSystemContext))]
+    [Migration("20200224174816_UpdateContext")]
+    partial class UpdateContext
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.0.0")
+                .HasAnnotation("ProductVersion", "3.1.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("ExaminationSystem.Framework.Entities.Concrete.Log", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Audit")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Detail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Logs");
+                });
+
+            modelBuilder.Entity("ExaminationSystem.Models.Entities.Category", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("ClassLevelId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CreatedUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ModifiedUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("OnCreated")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2020, 2, 24, 20, 48, 15, 503, DateTimeKind.Local).AddTicks(577));
+
+                    b.Property<DateTime?>("OnModified")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClassLevelId");
+
+                    b.HasIndex("CreatedUserId");
+
+                    b.HasIndex("ModifiedUserId");
+
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("ExaminationSystem.Models.Entities.ClassLevel", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ClassLevelName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ClassLevels");
+                });
+
+            modelBuilder.Entity("ExaminationSystem.Models.Entities.ExamParameter", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("LengthOfExam")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(30);
+
+                    b.Property<int>("NumberOfQuestions")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(20);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ExamParameters");
+                });
+
+            modelBuilder.Entity("ExaminationSystem.Models.Entities.Note", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CategoryId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Correct")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Date")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2020, 2, 24, 20, 48, 15, 520, DateTimeKind.Local).AddTicks(8326));
+
+                    b.Property<int>("Empty")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Wrong")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("Notes");
+                });
+
+            modelBuilder.Entity("ExaminationSystem.Models.Entities.Question", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("A")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("B")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("C")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CategoryId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("CorrectAnswer")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("D")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModifiedUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("OnCreated")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2020, 2, 24, 20, 48, 15, 514, DateTimeKind.Local).AddTicks(4117));
+
+                    b.Property<DateTime?>("OnModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("QuestionContent")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("CreatedUserId");
+
+                    b.HasIndex("ModifiedUserId");
+
+                    b.ToTable("Questions");
+                });
+
+            modelBuilder.Entity("ExaminationSystem.Models.Entities.SolvedQuestion", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CategoryId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Date")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2020, 2, 24, 20, 48, 15, 524, DateTimeKind.Local).AddTicks(3216));
+
+                    b.Property<string>("QuestionId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SolvedQuestions");
+                });
 
             modelBuilder.Entity("ExaminationSystem.Models.IdentityEntities.AppRole", b =>
                 {
@@ -213,6 +427,47 @@ namespace ExaminationSystem.DataAccess.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("ExaminationSystem.Models.Entities.Category", b =>
+                {
+                    b.HasOne("ExaminationSystem.Models.Entities.ClassLevel", "ClassLevel")
+                        .WithMany("Categories")
+                        .HasForeignKey("ClassLevelId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ExaminationSystem.Models.IdentityEntities.AppUser", "CreatedUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedUserId");
+
+                    b.HasOne("ExaminationSystem.Models.IdentityEntities.AppUser", "ModifiedUser")
+                        .WithMany()
+                        .HasForeignKey("ModifiedUserId");
+                });
+
+            modelBuilder.Entity("ExaminationSystem.Models.Entities.Note", b =>
+                {
+                    b.HasOne("ExaminationSystem.Models.Entities.Category", "Category")
+                        .WithMany("Notes")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ExaminationSystem.Models.Entities.Question", b =>
+                {
+                    b.HasOne("ExaminationSystem.Models.Entities.Category", "Category")
+                        .WithMany("Questions")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ExaminationSystem.Models.IdentityEntities.AppUser", "CreatedUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedUserId");
+
+                    b.HasOne("ExaminationSystem.Models.IdentityEntities.AppUser", "ModifiedUser")
+                        .WithMany()
+                        .HasForeignKey("ModifiedUserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

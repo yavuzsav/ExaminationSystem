@@ -1,4 +1,5 @@
 ﻿using ExaminationSystem.Framework.Entities;
+using ExaminationSystem.Models.IdentityEntities;
 using System;
 
 namespace ExaminationSystem.Models.Base
@@ -7,8 +8,9 @@ namespace ExaminationSystem.Models.Base
     {
         public string Id { get; set; }
         public DateTime OnCreated { get; set; } = DateTime.Now;
-        public DateTime? OnModified { get; set; } = DateTime.Now;
-        public string CreatedUserName { get; set; }
-        public string ModifiedUserName { get; set; }
+        public DateTime? OnModified { get; set; }
+        public virtual AppUser CreatedUser { get; set; }
+        public virtual AppUser ModifiedUser { get; set; }
+
     }
 }
